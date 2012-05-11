@@ -1,27 +1,59 @@
 package se.diversify.jamit.resources;
 
+import se.diversify.jamit.domain.Role;
+import se.diversify.jamit.domain.User;
 import se.diversify.jamit.repository.UserDao;
+import se.diversify.jamit.util.JsonUtils;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-
 
 @Path("/user/{userId}")
 public class UserResource {
 
-    @Context
-    UriInfo uriInfo;
-
     private UserDao dao = UserDao.defaultDao();
 
-
     @GET
-    @Produces("text/plain")
-    public String getUser(@PathParam("userId") int id) {
-        return dao.get(id).toString();
+    @Produces("application/json")
+    public String get(@PathParam("userId") int id) {
+        String result = "";
+        try {
+            result = JsonUtils.toJson(dao.get(id));
+        } catch (Exception e) {
+            result = JsonUtils.toJson(e);
+        }
+        return result;
+    }
+
+    @POST
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces("application/json")
+    public String update(@FormParam("id") String id, @FormParam("name") String name, @FormParam("email") String
+            email, @FormParam("role") String role) {
+        String result = "";
+        try {
+            User user = new User(Integer.valueOf(id), name, email, role);
+            user = dao.update(user);
+            result = JsonUtils.toJson(user);
+        } catch (Exception e) {
+            result = JsonUtils.toJson(e);
+        }
+        return result;
+    }
+
+    @DELETE
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces("application/json")
+    public String delete(@FormParam("id") String id) {
+        String result = JsonUtils.ok();
+        try {
+            dao.delete(Integer.valueOf(id));
+        } catch (IllegalArgumentException e) {
+            result = JsonUtils.toJson(e);
+        }
+        return result;
     }
 }
+
+
