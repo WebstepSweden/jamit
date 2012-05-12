@@ -1,0 +1,31 @@
+package se.diversify.jamit.util
+
+import org.jasypt.util.password.BasicPasswordEncryptor
+import se.diversify.jamit.db.UserQueries
+
+/** Allow Java interoperability */
+class EncryptionUtils
+
+/** Enryption utils */
+object EncryptionUtils {
+  private val passwordEncryptor = new BasicPasswordEncryptor
+
+  /**
+   * Encrypt the given password
+   * @param password the password to encrypt
+   * @return the encrpted password
+   */
+  def encrypt(password: String) = passwordEncryptor.encryptPassword(password)
+
+  /**
+   * Check against the database to see if the user's given password matches the saved one
+   * @param userId the user id
+   * @param givenPassword the given user's password
+   * @return true if user's password matches saved one, or false otherwise
+   */
+  def isPasswordOk(userId: Int, givenPassword: String): Boolean = {
+    val user = UserQueries.getUser(userId)
+    val encryptedPassword = encrypt(givenPassword)
+    user.password == givenPassword
+  }
+}

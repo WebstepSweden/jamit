@@ -10,24 +10,24 @@ object UserQueries {
   import se.diversify.jamit.domain.User
 
   def getAllUsers: List[User] = {
-    val query = for (u <- Users) yield (u.id ~ u.name ~ u.email ~ u.role)
+    val query = for (u <- Users) yield (u.id ~ u.name ~ u.email ~ u.role ~ u.password)
     DB.database withSession {
-      query.list.map(user => User(user._1, user._2, user._3, user._4))
+      query.list.map(user => User(user._1, user._2, user._3, user._4, user._5))
     }
   }
 
   def getUser(id: Int): User = {
-    val query = for (u <- Users if u.id === id) yield (u.id ~ u.name ~ u.email ~ u.role)
+    val query = for (u <- Users if u.id === id) yield (u.id ~ u.name ~ u.email ~ u.role ~ u.password)
     DB.database withSession {
       val user = query.first
-      User(user._1, user._2, user._3, user._4)
+      User(user._1, user._2, user._3, user._4, user._5)
     }
   }
 
   def insertUser(user: User): User = {
     DB.database withSession {
       Users.insert(
-        (0, user.name, user.email, user.role)
+        (0, user.name, user.email, user.role, user.password)
       )
       val scopeIdentity = SimpleFunction.nullary[Int]("LAST_INSERT_ID")
       val newId = Query(scopeIdentity).first
@@ -36,9 +36,9 @@ object UserQueries {
   }
 
   def updateUser(user: User): User = {
-    val query = for (u <- Users if u.id === user.id) yield (u.id ~ u.name ~ u.email ~ u.role)
+    val query = for (u <- Users if u.id === user.id) yield (u.id ~ u.name ~ u.email ~ u.role ~ u.password)
     DB.database withSession {
-      query.update(user.id, user.name, user.email, user.role)
+      query.update(user.id, user.name, user.email, user.role, user.password)
       user
     }
   }
