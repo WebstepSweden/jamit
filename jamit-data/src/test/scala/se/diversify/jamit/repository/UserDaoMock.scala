@@ -4,14 +4,15 @@ import se.diversify.jamit.domain._
 import Role._
 import se.diversify.jamit.util.EncryptionUtils
 
+/**Mock implementation of UserDao */
 class UserDaoMock extends UserDao {
 
-  val users = collection.mutable.Map(
+  private val users = collection.mutable.Map(
     1 -> User(1, "Kalle Karlsson", "kalle@karlsson.se", LocalOwner, EncryptionUtils.encrypt("123")),
     2 -> User(2, "Lasse Larsson", "lasse@larsson.se", Musician, EncryptionUtils.encrypt("456")),
     3 -> User(3, "David Davidsson", "david@davidsson.se", Fan, EncryptionUtils.encrypt("789")))
 
-  def lastIndex = users.keys.max
+  private def lastIndex = users.keys.max
 
   override def get(id: Int): User = users(id)
 

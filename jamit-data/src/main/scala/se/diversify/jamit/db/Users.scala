@@ -4,6 +4,7 @@ import org.scalaquery.ql.TypeMapper._
 import se.diversify.jamit.domain.Role._
 import org.scalaquery.ql.extended.ExtendedTable
 
+/**Defines mapping against the users database table */
 object Users extends ExtendedTable[(Int, String, String, String, String)]("users") {
 
   def id = column[Int]("id", O PrimaryKey, O AutoInc)
@@ -22,7 +23,8 @@ object Users extends ExtendedTable[(Int, String, String, String, String)]("users
   import org.scalaquery.session.Database.threadLocalSession
   import se.diversify.jamit.util.EncryptionUtils._
 
-  def createDefaultData {
+  /**Creates default data in the users database table */
+  private[db] def createDefaultData {
     DB.database withSession {
       Users.insertAll(
         (0, "Kalle Karlsson", "kalle@karlsson.se", LocalOwner, encrypt("123")),

@@ -9,6 +9,9 @@ import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.net.URI;
 
+/**
+ * Start a server that runs the RESt service
+ */
 public class Server {
 
     private static URI getBaseURI() {
@@ -23,6 +26,11 @@ public class Server {
         return GrizzlyServerFactory.createHttpServer(BASE_URI, rc);
     }
 
+    /**
+     * Start the server
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         HttpServer httpServer = startServer();
         System.out.println(String.format("Jersey app started with WADL available at "
