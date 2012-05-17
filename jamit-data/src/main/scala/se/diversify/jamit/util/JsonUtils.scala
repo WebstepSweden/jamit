@@ -1,8 +1,7 @@
 package se.diversify.jamit.util
 
 /**Allow Java interoperability */
-class JsonUtils public void notOk ( ) {
-}
+class JsonUtils
 
 /**Json utilities */
 object JsonUtils {
