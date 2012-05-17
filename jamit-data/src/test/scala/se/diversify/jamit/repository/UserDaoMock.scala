@@ -16,6 +16,11 @@ class UserDaoMock extends UserDao {
 
   override def get(id: Int): User = users(id)
 
+  override def getByEmail(email: String): User = users.values.find(_.email == email) match {
+    case Some(user) => user
+    case None => throw new IllegalArgumentException
+  }
+
   override def update(user: User): User = {
     users.update(user.id, user)
     user

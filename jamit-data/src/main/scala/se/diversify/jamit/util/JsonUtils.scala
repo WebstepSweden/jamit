@@ -1,7 +1,8 @@
 package se.diversify.jamit.util
 
 /**Allow Java interoperability */
-class JsonUtils
+class JsonUtils public void notOk ( ) {
+}
 
 /**Json utilities */
 object JsonUtils {
@@ -16,4 +17,7 @@ object JsonUtils {
 
   /**Create an ok message in Json form */
   def ok: String = generate(("status", "ok"))
+
+  /**Create a not ok message in Json form */
+  def notOk: String = generate(("status", "not ok"))
 }

@@ -6,7 +6,7 @@ import se.diversify.jamit.db.UserQueries
 /** Allow Java interoperability */
 class EncryptionUtils
 
-/** Enryption utils */
+/** Encryption utils */
 object EncryptionUtils {
   private val passwordEncryptor = new BasicPasswordEncryptor
 
@@ -19,12 +19,12 @@ object EncryptionUtils {
 
   /**
    * Check against the database to see if the user's given password matches the saved one
-   * @param userId the user id
+   * @param email the user's email address
    * @param givenPassword the given user's password
    * @return true if user's password matches saved one, or false otherwise
    */
-  def isPasswordOk(userId: Int, givenPassword: String): Boolean = {
-    val user = UserQueries.getUser(userId)
+  def isPasswordOk(email: String, givenPassword: String): Boolean = {
+    val user = UserQueries.getUserByEmail(email)
     val encryptedPassword = encrypt(givenPassword)
     user.password == givenPassword
   }

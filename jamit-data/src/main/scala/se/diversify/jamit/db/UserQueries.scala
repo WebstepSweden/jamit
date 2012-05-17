@@ -5,6 +5,7 @@ import org.scalaquery.ql.{Query, SimpleFunction}
 /**Defines database queries for the users database table */
 object UserQueries {
 
+
   import org.scalaquery.ql.extended.MySQLDriver.Implicit._
   import org.scalaquery.session.Database.threadLocalSession
   import se.diversify.jamit.domain.User
@@ -20,11 +21,23 @@ object UserQueries {
   }
 
   /**Retrieve a user given its id
-   * @param id the user id
+   * @param id the user's id
    * @return the user
    */
   def getUser(id: Int): User = {
     val query = for (u <- Users if u.id === id) yield (u.id ~ u.name ~ u.email ~ u.role ~ u.password)
+    DB.database withSession {
+      val user = query.first
+      User(user._1, user._2, user._3, user._4, user._5)
+    }
+  }
+
+  /**Retrieve a user given its email
+   * @param email the user's email address
+   * @return the user
+   */
+  def getUserByEmail(email: String): User = {
+    val query = for (u <- Users if u.email == email) yield (u.id ~ u.name ~ u.email ~ u.role ~ u.password)
     DB.database withSession {
       val user = query.first
       User(user._1, user._2, user._3, user._4, user._5)

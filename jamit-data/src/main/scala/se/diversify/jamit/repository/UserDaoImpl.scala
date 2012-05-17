@@ -8,6 +8,8 @@ class UserDaoImpl extends UserDao {
 
   override def get(id: Int): User = UserQueries.getUser(id)
 
+  override def getByEmail(email: String): User = UserQueries.getUserByEmail(email)
+
   override def update(user: User): User = UserQueries.updateUser(user)
 
   override def add(user: User): User = UserQueries.insertUser(user)
@@ -17,4 +19,5 @@ class UserDaoImpl extends UserDao {
   }
 
   override def getAll(): List[User] = UserQueries.getAllUsers
+
 }
