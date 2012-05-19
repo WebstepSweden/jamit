@@ -4,8 +4,9 @@ import org.scalaquery.ql.TypeMapper._
 import se.diversify.jamit.domain.Role._
 import org.scalaquery.ql.extended.ExtendedTable
 
+
 /**Defines mapping against the users database table */
-object Users extends ExtendedTable[(Int, String, String, String, String)]("users") {
+object Users extends ExtendedTable[(Int, String, String, String, String, String)]("users") with Setup {
 
   def id = column[Int]("id", O PrimaryKey, O AutoInc)
 
@@ -13,25 +14,24 @@ object Users extends ExtendedTable[(Int, String, String, String, String)]("users
 
   def email = column[String]("email")
 
+  def phone = column[String]("phone")
+
   def role = column[String]("role")
 
   def password = column[String]("password")
 
-  def * = id ~ name ~ email ~ role ~ password
+  def * = id ~ name ~ email ~ phone ~ role ~ password
 
   import org.scalaquery.ql.extended.MySQLDriver.Implicit._
   import org.scalaquery.session.Database.threadLocalSession
   import se.diversify.jamit.util.EncryptionUtils._
 
-  /**Creates default data in the users database table */
-  private[db] def createDefaultData {
-    DB.database withSession {
-      Users.insertAll(
-        (0, "Kalle Karlsson", "kalle@karlsson.se", LocalOwner, encrypt("123")),
-        (0, "Lasse Larsson", "lasse@larsson.se", Musician, encrypt("456")),
-        (0, "David Davidsson", "david@davidsson.se", Fan, encrypt("789"))
-      )
-    }
+  def populateTable {
+    Users.insertAll(
+      (0, "Kalle Karlsson", "kalle@karlsson.se", "08-123456", LocalOwner.toString, encrypt("123")),
+      (0, "Lasse Larsson", "lasse@larsson.se", "08-654321", Musician.toString, encrypt("456")),
+      (0, "David Davidsson", "david@davidsson.se", "08-132435", Fan.toString, encrypt("789"))
+    )
   }
 }
 

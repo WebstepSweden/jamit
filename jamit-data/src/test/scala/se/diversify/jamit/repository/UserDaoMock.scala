@@ -8,9 +8,9 @@ import se.diversify.jamit.util.EncryptionUtils
 class UserDaoMock extends UserDao {
 
   private val users = collection.mutable.Map(
-    1 -> User(1, "Kalle Karlsson", "kalle@karlsson.se", LocalOwner, EncryptionUtils.encrypt("123")),
-    2 -> User(2, "Lasse Larsson", "lasse@larsson.se", Musician, EncryptionUtils.encrypt("456")),
-    3 -> User(3, "David Davidsson", "david@davidsson.se", Fan, EncryptionUtils.encrypt("789")))
+    1 -> User(1, "Kalle Karlsson", "kalle@karlsson.se", "08-123123", LocalOwner, EncryptionUtils.encrypt("123")),
+    2 -> User(2, "Lasse Larsson", "lasse@larsson.se", "08-123123", Musician, EncryptionUtils.encrypt("456")),
+    3 -> User(3, "David Davidsson", "david@davidsson.se", "08-123123", Fan, EncryptionUtils.encrypt("789")))
 
   private def lastIndex = users.keys.max
 

@@ -23,6 +23,7 @@ public class RegisterService {
      * @param id        the user's id
      * @param name      the user's name
      * @param email     the user's email address
+     * @param phone     the user's phone no
      * @param role      the user's role
      * @param password1 the user's password
      * @param password2 the user's password entered again
@@ -33,13 +34,13 @@ public class RegisterService {
     @Consumes("application/x-www-form-urlencoded")
     @Produces("application/json")
     public String register(@FormParam("id") String id, @FormParam("name") String name, @FormParam("email") String email,
-                           @FormParam("role") String role, @FormParam("password1") String password1,
+                           @FormParam("phone") String phone, @FormParam("role") String role, @FormParam("password1") String password1,
                            @FormParam("password2") String password2) {
         String result = "";
         if (!isPasswordsOk(password1, password2)) {
             result = JsonUtils.notOk();
         } else {
-            User user = dao.add(new User(-1, name, email, role, EncryptionUtils.encrypt(password1)));
+            User user = dao.add(new User(-1, name, email, phone, role, EncryptionUtils.encrypt(password1)));
             result = JsonUtils.toJson(user);
         }
         return result;

@@ -14,9 +14,9 @@ object UserQueries {
    * @return all users in the database
    */
   def getAllUsers: List[User] = {
-    val query = for (u <- Users) yield (u.id ~ u.name ~ u.email ~ u.role ~ u.password)
+    val query = for (u <- Users) yield (u.id ~ u.name ~ u.email ~ u.phone ~ u.role ~ u.password)
     DB.database withSession {
-      query.list.map(user => User(user._1, user._2, user._3, user._4, user._5))
+      query.list.map(user => User(user._1, user._2, user._3, user._4, user._5, user._6))
     }
   }
 
@@ -25,10 +25,10 @@ object UserQueries {
    * @return the user
    */
   def getUser(id: Int): User = {
-    val query = for (u <- Users if u.id === id) yield (u.id ~ u.name ~ u.email ~ u.role ~ u.password)
+    val query = for (u <- Users if u.id === id) yield (u.id ~ u.name ~ u.email ~ u.phone ~ u.role ~ u.password)
     DB.database withSession {
       val user = query.first
-      User(user._1, user._2, user._3, user._4, user._5)
+      User(user._1, user._2, user._3, user._4, user._5, user._6)
     }
   }
 
@@ -37,10 +37,10 @@ object UserQueries {
    * @return the user
    */
   def getUserByEmail(email: String): User = {
-    val query = for (u <- Users if u.email == email) yield (u.id ~ u.name ~ u.email ~ u.role ~ u.password)
+    val query = for (u <- Users if u.email == email) yield (u.id ~ u.name ~ u.email ~ u.phone ~ u.role ~ u.password)
     DB.database withSession {
       val user = query.first
-      User(user._1, user._2, user._3, user._4, user._5)
+      User(user._1, user._2, user._3, user._4, user._5, user._6)
     }
   }
 
@@ -51,7 +51,7 @@ object UserQueries {
   def insertUser(user: User): User = {
     DB.database withSession {
       Users.insert(
-        (0, user.name, user.email, user.role, user.password)
+        (0, user.name, user.email, user.phone, user.role, user.password)
       )
       val scopeIdentity = SimpleFunction.nullary[Int]("LAST_INSERT_ID")
       val newId = Query(scopeIdentity).first
@@ -64,9 +64,9 @@ object UserQueries {
    * @return the updated user
    */
   def updateUser(user: User): User = {
-    val query = for (u <- Users if u.id === user.id) yield (u.id ~ u.name ~ u.email ~ u.role ~ u.password)
+    val query = for (u <- Users if u.id === user.id) yield (u.id ~ u.name ~ u.email ~ u.phone ~ u.role ~ u.password)
     DB.database withSession {
-      query.update(user.id, user.name, user.email, user.role, user.password)
+      query.update(user.id, user.name, user.email, user.phone, user.role, user.password)
       user
     }
   }

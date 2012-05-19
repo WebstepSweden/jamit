@@ -2,6 +2,7 @@ package se.diversify.jamit.db
 
 import org.scalaquery.session.Database.threadLocalSession
 import org.scalaquery.session._
+import org.scalaquery.ql.extended.ExtendedTable
 
 /**Allow Java interoperability */
 class DB
@@ -16,18 +17,16 @@ object DB {
     user = "jamit",
     password = "Zzwmr5TBSK8Gac"
   )
-  //createTables
-  //createDefaultData
 
   import org.scalaquery.ql.extended.MySQLDriver.Implicit._
+  import org.scalaquery.session.Database.threadLocalSession
 
-  private def createTables {
-    database withSession {
-      Users.ddl create
+  val tables = List(Users)
+  DB.database withSession {
+    for (table <- tables) {
+      table.ddl.drop
+      table.ddl.create
+      table.populateTable
     }
-  }
-
-  private def createDefaultData {
-    Users.createDefaultData
   }
 }

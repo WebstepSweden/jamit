@@ -15,8 +15,8 @@ object JsonUtils {
   def toJson(thing: AnyRef): String = generate(thing)
 
   /**Create an ok message in Json form */
-  def ok: String = generate(("status", "ok"))
+  def ok: String = generate(Map("status" -> "ok"))
 
   /**Create a not ok message in Json form */
-  def notOk: String = generate(("status", "not ok"))
+  def notOk: String = generate(Map("status" -> "not ok"))
 }
