@@ -20,7 +20,6 @@ public class RegisterService {
      * Register a new user using the POST REST service. The request should include following arguments in
      * application/x-www-form-urlencoded format
      *
-     * @param id        the user's id
      * @param name      the user's name
      * @param email     the user's email address
      * @param phone     the user's phone no
@@ -33,11 +32,11 @@ public class RegisterService {
     @POST
     @Consumes("application/x-www-form-urlencoded")
     @Produces("application/json")
-    public String register(@FormParam("id") String id, @FormParam("name") String name, @FormParam("email") String email,
+    public String register(@FormParam("name") String name, @FormParam("email") String email,
                            @FormParam("phone") String phone, @FormParam("role") String role, @FormParam("password1") String password1,
                            @FormParam("password2") String password2) {
         String result = "";
-        if (!isPasswordsOk(password1, password2)) {
+        if (!isPasswordsOk(password1, password2) || isFieldsMissing(new String[]{name, email, phone, role, password1, password2})) {
             result = JsonUtils.notOk();
         } else {
             User user = dao.add(new User(-1, name, email, phone, role, EncryptionUtils.encrypt(password1)));
@@ -53,5 +52,14 @@ public class RegisterService {
         ok &= password1.equals(password2);
 
         return ok;
+    }
+
+    private boolean isFieldsMissing(String[] fields) {
+        for (String field : fields) {
+            if (StringUtils.isBlank(field)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
