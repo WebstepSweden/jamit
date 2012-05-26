@@ -12,7 +12,12 @@ import javax.ws.rs.*;
  * REST service for registering new users
  */
 @Path("/register")
-public class RegisterService {
+public class RegisterResource {
+
+    @GET
+    public String gettest() {
+        return "tjohej!";
+    }
 
     private UserDao dao = UserDao.defaultDao();
 
