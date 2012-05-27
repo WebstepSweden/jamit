@@ -8,7 +8,7 @@
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
-            <--You need to change this line to match your package name -->
+            <!-- You need to change this line to match your package name -->
             <param-value>se.diversify.jamit.resources</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
