@@ -1,12 +1,12 @@
 package se.diversify.jamit.util
 
 import org.jasypt.util.password.BasicPasswordEncryptor
-import se.diversify.jamit.db.UserQueries
+import se.diversify.jamit.repository.UserDao
 
-/** Allow Java interoperability */
+/**Allow Java interoperability */
 class EncryptionUtils
 
-/** Encryption utils */
+/**Encryption utils */
 object EncryptionUtils {
   private val passwordEncryptor = new BasicPasswordEncryptor
 
@@ -24,7 +24,7 @@ object EncryptionUtils {
    * @return true if user's password matches saved one, or false otherwise
    */
   def isPasswordOk(email: String, givenPassword: String): Boolean = {
-    val user = UserQueries.getUserByEmail(email)
+    val user = UserDao.defaultDao.getByEmail(email)
     val encryptedPassword = encrypt(givenPassword)
     user.password == givenPassword
   }

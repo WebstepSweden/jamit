@@ -1,8 +1,9 @@
-package se.diversify.jamit.db
+package se.diversify.jamit.repository
 
 import org.scalaquery.session.Database.threadLocalSession
 import org.scalaquery.session._
 import org.scalaquery.ql.extended.ExtendedTable
+import se.diversify.jamit.db.Users
 
 /**Allow Java interoperability */
 class DB
@@ -11,7 +12,7 @@ class DB
 object DB {
 
   /**Define a database connection object */
-  private[db] val database = Database.forURL(
+  private[repository] val database = Database.forURL(
     "jdbc:mysql://localhost:3306/jamit",
     driver = "com.mysql.jdbc.Driver",
     user = "jamit",

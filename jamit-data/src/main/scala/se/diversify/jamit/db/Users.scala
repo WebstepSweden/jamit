@@ -4,7 +4,6 @@ import org.scalaquery.ql.TypeMapper._
 import se.diversify.jamit.domain.Role._
 import org.scalaquery.ql.extended.ExtendedTable
 
-
 /**Defines mapping against the users database table */
 object Users extends ExtendedTable[(Int, String, String, String, String, String)]("users") with Setup {
 
