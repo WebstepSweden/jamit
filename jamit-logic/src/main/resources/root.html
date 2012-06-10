@@ -6,8 +6,7 @@
 
     <style type="text/css">
 
-        body
-        {
+        body {
             font-family: "Segoe UI", arial, helvetica, freesans, sans-serif;
             font-size: 90%;
             color: #333;
@@ -16,40 +15,34 @@
             z-index: 0;
         }
 
-        h1
-        {
+        h1 {
             font-size: 1.5em;
             font-weight: normal;
             margin: 0;
         }
 
-        h2
-        {
+        h2 {
             font-size: 1.3em;
             font-weight: normal;
             margin: 2em 0 0 0;
         }
 
-        p
-        {
+        p {
             margin: 0.6em 0;
         }
 
-        p.tabnav
-        {
+        p.tabnav {
             font-size: 1.1em;
             text-transform: uppercase;
             text-align: right;
         }
 
-        p.tabnav a
-        {
+        p.tabnav a {
             text-decoration: none;
             color: #fff;
         }
 
-        article.tabs
-        {
+        article.tabs {
             position: relative;
             display: block;
             width: 40em;
@@ -57,8 +50,7 @@
             margin: 2em auto;
         }
 
-        article.tabs section
-        {
+        article.tabs section {
             position: absolute;
             display: block;
             top: 1.8em;
@@ -67,17 +59,15 @@
             padding: 10px 20px;
             background-color: #287F9B;
             border-radius: 5px;
-            box-shadow: 0 3px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
             z-index: 0;
         }
 
-        article.tabs section:first-child
-        {
+        article.tabs section:first-child {
             z-index: 1;
         }
 
-        article.tabs section h2
-        {
+        article.tabs section h2 {
             position: absolute;
             font-size: 1em;
             font-weight: normal;
@@ -92,18 +82,15 @@
             border-radius: 5px 5px 0 0;
         }
 
-        article.tabs section:nth-child(2) h2
-        {
+        article.tabs section:nth-child(2) h2 {
             left: 132px;
         }
 
-        article.tabs section:nth-child(3) h2
-        {
+        article.tabs section:nth-child(3) h2 {
             left: 254px;
         }
 
-        article.tabs section h2 a
-        {
+        article.tabs section h2 a {
             display: block;
             width: 100%;
             line-height: 1.8em;
@@ -114,8 +101,7 @@
         }
 
         article.tabs section,
-        article.tabs section h2
-        {
+        article.tabs section h2 {
             -webkit-transition: all 500ms ease;
             -moz-transition: all 500ms ease;
             -ms-transition: all 500ms ease;
@@ -124,8 +110,7 @@
         }
 
         article.tabs section:target,
-        article.tabs section:target h2
-        {
+        article.tabs section:target h2 {
             color: #333;
             background-color: #fff;
             z-index: 2;
@@ -194,11 +179,10 @@
 <body>
 
 <article class="tabs">
+
     <section id="tab1">
-        <h2><a href="#tab1">Register Service</a></h2>
-
+        <h2><a href="#tab1">Register User Service</a></h2>
         <div id="registration">
-
             <form method="POST" action="jamit-logic/register">
                 <h4>Register form (POST)</h4>
                 <fieldset>
@@ -239,7 +223,6 @@
                 </fieldset>
             </form>
         </div>
-
     </section>
     <!--
 

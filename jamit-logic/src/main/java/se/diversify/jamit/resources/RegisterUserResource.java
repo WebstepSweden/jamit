@@ -12,7 +12,7 @@ import javax.ws.rs.*;
  * REST service for registering new users
  */
 @Path("/register")
-public class RegisterResource {
+public class RegisterUserResource {
 
     @GET
     public String gettest() {
