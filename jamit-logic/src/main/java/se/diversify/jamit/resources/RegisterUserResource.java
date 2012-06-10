@@ -1,6 +1,7 @@
 package se.diversify.jamit.resources;
 
 import org.apache.commons.lang3.StringUtils;
+import scala.Tuple2;
 import se.diversify.jamit.domain.User;
 import se.diversify.jamit.repository.UserDao;
 import se.diversify.jamit.util.EncryptionUtils;
@@ -11,13 +12,8 @@ import javax.ws.rs.*;
 /**
  * REST service for registering new users
  */
-@Path("/register")
+@Path("/register-user")
 public class RegisterUserResource {
-
-    @GET
-    public String gettest() {
-        return "tjohej!";
-    }
 
     private UserDao dao = UserDao.defaultDao();
 
@@ -41,8 +37,14 @@ public class RegisterUserResource {
                            @FormParam("phone") String phone, @FormParam("role") String role, @FormParam("password1") String password1,
                            @FormParam("password2") String password2) {
         String result = "";
-        if (!isPasswordsOk(password1, password2) || isFieldsMissing(new String[]{name, email, phone, role, password1, password2})) {
-            result = JsonUtils.notOk();
+
+        Tuple2<Boolean, String> passwordsOk = isPasswordsOk(password1, password2);
+        Tuple2<Boolean, String> fieldsOk = isFieldsMissing(new String[][]{{"name", name}, {"email", email}, {"phone", phone}, {"role", role}, {"password1", password1}, {"password2", password2}});
+
+        if (!passwordsOk._1()) {
+            result = JsonUtils.notOk(passwordsOk._2());
+        } else if (!fieldsOk._1()) {
+            result = JsonUtils.notOk(fieldsOk._2());
         } else {
             User user = dao.add(new User(-1, name, email, phone, role, EncryptionUtils.encrypt(password1)));
             result = JsonUtils.toJson(user);
@@ -50,21 +52,37 @@ public class RegisterUserResource {
         return result;
     }
 
-    private boolean isPasswordsOk(String password1, String password2) {
+    private Tuple2<Boolean, String> isPasswordsOk(String password1, String password2) {
         boolean ok = true;
-        ok &= StringUtils.isNotBlank(password1);
-        ok &= StringUtils.isNotBlank(password2);
-        ok &= password1.equals(password2);
+        String message = "";
 
-        return ok;
+        if (StringUtils.isBlank(password1)) {
+            ok = false;
+            message = "password1 is blank";
+        }
+        if (StringUtils.isBlank(password2)) {
+            ok = false;
+            message += (StringUtils.isEmpty(message) ? "" : ", ") + "password2 is blank";
+        }
+        if (!password1.equals(password2)) {
+            ok = false;
+            message += (StringUtils.isEmpty(message) ? "" : ", ") + "passwords don't match";
+        }
+
+        return new Tuple2<Boolean, String>(ok, message);
     }
 
-    private boolean isFieldsMissing(String[] fields) {
-        for (String field : fields) {
-            if (StringUtils.isBlank(field)) {
-                return true;
+    private Tuple2<Boolean, String> isFieldsMissing(String[][] fields) {
+        boolean ok = true;
+        String message = "";
+
+        for (String[] field : fields) {
+            if (StringUtils.isBlank(field[1])) {
+                ok = false;
+                message += (StringUtils.isEmpty(message) ? "" : ", ") + field[0] + " is missing";
             }
         }
-        return false;
+
+        return new Tuple2<Boolean, String>(ok, message);
     }
 }

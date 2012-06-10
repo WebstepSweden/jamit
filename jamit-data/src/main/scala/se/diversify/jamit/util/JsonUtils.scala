@@ -18,5 +18,5 @@ object JsonUtils {
   def ok: String = generate(Map("status" -> "ok"))
 
   /**Create a not ok message in Json form */
-  def notOk: String = generate(Map("status" -> "not ok"))
+  def notOk(message: String): String = generate(Map("status" -> "not ok", "message" -> message))
 }
