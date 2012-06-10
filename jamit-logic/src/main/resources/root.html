@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Jamit REST services test page</title>
+
+    <style type="text/css">
+
+        body
+        {
+            font-family: "Segoe UI", arial, helvetica, freesans, sans-serif;
+            font-size: 90%;
+            color: #333;
+            background-color: #e5eaff;
+            margin: 10px;
+            z-index: 0;
+        }
+
+        h1
+        {
+            font-size: 1.5em;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        h2
+        {
+            font-size: 1.3em;
+            font-weight: normal;
+            margin: 2em 0 0 0;
+        }
+
+        p
+        {
+            margin: 0.6em 0;
+        }
+
+        p.tabnav
+        {
+            font-size: 1.1em;
+            text-transform: uppercase;
+            text-align: right;
+        }
+
+        p.tabnav a
+        {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        article.tabs
+        {
+            position: relative;
+            display: block;
+            width: 40em;
+            height: 15em;
+            margin: 2em auto;
+        }
+
+        article.tabs section
+        {
+            position: absolute;
+            display: block;
+            top: 1.8em;
+            left: 0;
+            height: 30em;
+            padding: 10px 20px;
+            background-color: #287F9B;
+            border-radius: 5px;
+            box-shadow: 0 3px 3px rgba(0,0,0,0.1);
+            z-index: 0;
+        }
+
+        article.tabs section:first-child
+        {
+            z-index: 1;
+        }
+
+        article.tabs section h2
+        {
+            position: absolute;
+            font-size: 1em;
+            font-weight: normal;
+            width: 120px;
+            height: 1.8em;
+            top: -1.8em;
+            left: 10px;
+            padding: 0;
+            margin: 0;
+            color: #fff;
+            background-color: #287F9B;
+            border-radius: 5px 5px 0 0;
+        }
+
+        article.tabs section:nth-child(2) h2
+        {
+            left: 132px;
+        }
+
+        article.tabs section:nth-child(3) h2
+        {
+            left: 254px;
+        }
+
+        article.tabs section h2 a
+        {
+            display: block;
+            width: 100%;
+            line-height: 1.8em;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            outline: 0 none;
+        }
+
+        article.tabs section,
+        article.tabs section h2
+        {
+            -webkit-transition: all 500ms ease;
+            -moz-transition: all 500ms ease;
+            -ms-transition: all 500ms ease;
+            -o-transition: all 500ms ease;
+            transition: all 500ms ease;
+        }
+
+        article.tabs section:target,
+        article.tabs section:target h2
+        {
+            color: #333;
+            background-color: #fff;
+            z-index: 2;
+        }
+
+        h1, h2, h3, h4 {
+            font: normal Verdana, Tahoma, sans-serif;
+            color: #ffffff;
+        }
+
+        form {
+            width: 350px;
+        }
+
+        fieldset {
+            border: ridge 3px #E5E5E5;
+        }
+
+        label {
+            margin-left: 10px;
+            color: #ffffff;
+            width: 100px;
+            float: left;
+        }
+
+        input, textarea, select {
+            padding: 3px;
+            border: solid 1px #E5E5E5;
+            outline: 0;
+            font: normal 13px/100% Verdana, Tahoma, sans-serif;
+            width: 200px;
+            background: #FFFFFF url('bg_form.png') left top repeat-x;
+            background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));
+            background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px);
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+            -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+            -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+        }
+
+        textarea {
+            width: 400px;
+            max-width: 400px;
+            height: 150px;
+            line-height: 150%;
+        }
+
+        input:hover, textarea:hover,
+        input:focus, textarea:focus {
+            border-color: #C9C9C9;
+            -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px;
+        }
+
+        select {
+            width: 208px;
+        }
+
+        input[type=submit] {
+            width: 70px;
+            float: right;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+<article class="tabs">
+    <section id="tab1">
+        <h2><a href="#tab1">Register Service</a></h2>
+
+        <div id="registration">
+
+            <form method="POST" action="jamit-logic/register">
+                <h4>Register form (POST)</h4>
+                <fieldset>
+
+                    <p>
+                        <label>Name:</label> <input type="text" name="name" class="text" value=""/>
+                    </p>
+
+                    <p>
+                        <label>e-mail:</label> <input type="email" name="email" class="text" value=""/>
+                    </p>
+
+                    <p>
+                        <label>Phone:</label> <input type="text" name="phone" class="text" value=""/>
+                    </p>
+
+                    <p>
+                        <label>Role:</label>
+                        <select name="role" class="text" value="">
+                            <option value="Local owner">Local owner</option>
+                            <option value="Musician">Musician</option>
+                            <option value="Fan">Fan</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <label>Password1:</label> <input type="password" name="password1" class="text" value=""/>
+                    </p>
+
+                    <p>
+                        <label>Password2:</label> <input type="password" name="password2" class="text" value=""/>
+                    </p>
+
+                    <p>
+                        <input type="submit" value="Skicka">
+                    </p>
+
+                </fieldset>
+            </form>
+        </div>
+
+    </section>
+    <!--
+
+    <section id="tab2">
+        <h2><a href="#tab2">Tab 2</a></h2>
+
+        <p>This content appears on tab 2.</p>
+    </section>
+    <section id="tab3">
+        <h2><a href="#tab3">Tab 3</a></h2>
+
+        <p>This content appears on tab 3.</p>
+    </section>
+    -->
+</article>
+
+
+</body>
+</html>
