@@ -32,7 +32,7 @@ public class LoginResource {
             User user = dao.getByEmail(email);
             result = JsonUtils.toJson(user);
         } else {
-            result = JsonUtils.notOk();
+            result = JsonUtils.notOk("");
         }
         return result;
     }
