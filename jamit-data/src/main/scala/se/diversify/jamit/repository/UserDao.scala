@@ -1,6 +1,6 @@
 package se.diversify.jamit.repository
 
-import impl.UserDaoImpl
+import impl.mongodb.UserDaoMongodbImpl
 import se.diversify.jamit.domain.User
 
 /**
@@ -12,16 +12,13 @@ abstract class UserDao extends BaseDao[User] {
    * @param email the user's email address
    * @return the user instance
    */
-  def getByEmail(email: String): User
+  def getByEmail(email: String): User = null
+
 }
 
 /**
  * Defines common user database operations
  */
 object UserDao {
-
-  /**
-   * Retrieve the default UserDao
-   */
-  val defaultDao = new UserDaoImpl
+  def defaultDao = new UserDaoMongodbImpl
 }

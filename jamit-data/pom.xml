@@ -21,6 +21,10 @@
             <name>Scala-Tools Maven2 Repository</name>
             <url>http://scala-tools.org/repo-releases</url>
         </repository>
+        <repository>
+            <id>repo.novus snaps</id>
+            <url>http://repo.novus.com/snapshots/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -50,6 +54,11 @@
             <artifactId>jasypt</artifactId>
             <version>1.9.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.novus</groupId>
+            <artifactId>salat-core_${scala.version}</artifactId>
+            <version>0.0.8-SNAPSHOT</version>
+        </dependency>       
     </dependencies>
 
 </project>

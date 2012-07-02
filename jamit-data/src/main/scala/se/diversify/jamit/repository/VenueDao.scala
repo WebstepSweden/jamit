@@ -1,6 +1,5 @@
 package se.diversify.jamit.repository
 
-import impl.VenueDaoImpl
 import se.diversify.jamit.domain.Venue
 
 /**Defines venue database operations */
@@ -19,5 +18,5 @@ object VenueDao {
   /**
    * Retrieve the default VenueDao
    */
-  val defaultDao = new VenueDaoImpl
+  val defaultDao = null//new VenueDaoMysqlImpl
 }

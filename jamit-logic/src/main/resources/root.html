@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Jamit REST services test page</title>
     <link type="text/css" href="http://code.jquery.com/ui/1.8.21/themes/cupertino/jquery-ui.css" rel="Stylesheet"/>
@@ -9,109 +9,132 @@
 
     <style type="text/css">
         label {
-            width: 6em;
             float: left;
-            text-align: right;
+            text-align: left;
             margin-right: 0.5em;
             display: block;
         }
 
-        button[type=submit] {
-            position: absolute;
-            left: 275px;
+        input {
+            width: 200px;
         }
 
-        @-moz-document url-prefix() {
-             button[type=submit] {
-                left: 320px;
-             }
+        input[type=radio] {
+            width: 20px;
+        }
+
+        button[type=submit] {
+            position: absolute;
+            left: 170px;
         }
 
         form {
-            padding-bottom: 20px;
+            padding-bottom: 100px;
         }
-
-
     </style>
 
-
+    <script type="text/javascript">
+        $(function () {
+            $("#accordion").accordion();
+            $("#tabs-1").tabs();
+            $("#tabs-2").tabs();
+        });
+    </script>
 </head>
 <body>
 
+<div id="accordion">
 
-<script>
-    $(function () {
-        $("#tabs").tabs();
-        $("#accordion-1").accordion();
-        $("#accordion-2").accordion();
-    });
+    <h3><a href="#">Register User</a></h3>
 
-
-</script>
-
-
-<div class="demo">
-
-    <div id="tabs">
+    <div id="tabs-1">
         <ul>
-            <li><a href="#tabs-1">Register User</a></li>
-            <li><a href="#tabs-2">Register Venue</a></li>
+            <li><a href="#tabs1-1">Register User (POST)</a></li>
         </ul>
-        <div id="tabs-1">
-            <div id="accordion-1">
-                <h4><a href="#">Register User (POST)</a></h4>
+        <div id="tabs-1-1">
 
-                <div>
-                    <form method="POST" action="jamit-logic/register-user">
-                        <p>
-                            <label>Name:</label> <input type="text" name="name"/>
-                        </p>
+            <form method="POST" action="jamit-logic/register-user">
+                <p>
+                    <label>Name</label></br><input type="text" name="name"/>
+                </p>
 
-                        <p>
-                            <label>E-mail:</label> <input type="text" name="email"/>
-                        </p>
+                <p>
+                    <label>E-mail</label></br><input type="text" name="email"/>
+                </p>
 
-                        <p>
-                            <label>Phone:</label> <input type="text" name="phone"/>
-                        </p>
+                <p>
+                    <label>Phone</label></br><input type="text" name="phone"/>
+                </p>
 
-                        <p>
-                            <label>Role:</label>
-                            <select name="role" class="text" value="">
-                                <option value="Local owner">Local owner</option>
-                                <option value="Musician">Musician</option>
-                                <option value="Fan">Fan</option>
-                            </select>
-                        </p>
+                <p>
+                    <label>Role</label></br>
+                    <select name="role" class="text" value="">
+                        <option value="Local owner">Local owner</option>
+                        <option value="Musician">Musician</option>
+                        <option value="Fan">Fan</option>
+                    </select>
+                </p>
 
-                        <p>
-                            <label>Password1:</label> <input type="password" name="password1"/>
-                        </p>
+                <p>
+                    <label>Password1</label></br><input type="password" name="password1"/>
+                </p>
 
-                        <p>
-                            <label>Password2:</label> <input type="password" name="password2"/>
-                        </p>
+                <p>
+                    <label>Password2</label></br><input type="password" name="password2"/>
+                </p>
 
-                        <p>
-                            <button type="submit">Submit</button>
-                        </p>
-
-                    </form>
-                </div>
-
-            </div>
+                <p>
+                    <button type="submit">Submit</button>
+                </p>
+            </form>
         </div>
-        <div id="tabs-2">
-            <div id="accordion-2">
-                <h4><a href="#">Register Venue (POST)</a></h4>
-
-                <div></div>
-            </div>
-        </div>
-
     </div>
-    <!-- End demo -->
 
+    <h3><a href="#">Register Venue</a></h3>
+
+    <div id="tabs-2">
+        <ul>
+            <li><a href="#tabs2-1">Register Venue (POST)</a></li>
+        </ul>
+        <div id="tabs-2-1">
+            <form method="POST" action="jamit-logic/register-venue">
+                <p>
+                    <label>Name</label></br><input type="text" name="name"/>
+                </p>
+
+                <p>
+                    <label>Address</label></br><input type="text" name="address"/>
+                </p>
+
+                <p>
+                    <label>Postal Code</label></br><input type="text" name="postalCode"/>
+                </p>
+
+                <p>
+                    <label>City</label></br><input type="text" name="city"/>
+                </p>
+
+                <p>
+                    <label>Type</label></br>
+                    <input type="radio" name="public" value="true"/>public
+                    <input type="radio" name="public" value="false"/>private
+                </p>
+
+                <p>
+                    <label>Max Number Of Musicians</label><br/><input type="text" name="maxNoOfMusicians"/>
+                </p>
+
+                <p>
+                    <label>Contact</label></br><input type="text" name="contact"/>
+                </p>
+
+                <p>
+                    <button type="submit">Submit</button>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
