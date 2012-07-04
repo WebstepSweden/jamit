@@ -13,7 +13,10 @@ class UserDaoMongodbImpl extends UserDao {
 
   import UserDaoMongodbImpl.{update => _update, _}
 
-  override def get(id: ObjectId): User = findOne(MongoDBObject("_id" -> id)).get.asInstanceOf[User]
+  override def get(id: ObjectId): User = findOne(MongoDBObject("_id" -> id)) match {
+    case Some(user) => user
+    case None => null
+  }
 
   override def update(user: User): User = {
     _update(MongoDBObject("_id" -> user._id), grater[User].asDBObject(user))
