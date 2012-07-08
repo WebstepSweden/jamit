@@ -17,7 +17,7 @@ import static se.diversify.jamit.resources.FormUtils.isFieldsMissing;
 @Path("/register-venue")
 public class RegisterVenueResource {
 
-    private VenueDao dao = null;//VenueDao.defaultDao();
+    private VenueDao dao = VenueDao.defaultDao();
 
     @POST
     @Consumes("application/x-www-form-urlencoded")
@@ -36,7 +36,7 @@ public class RegisterVenueResource {
         if (!fieldsOk._1()) {
             result = JsonUtils.notOk(fieldsOk._2());
         } else {
-            Venue venue = dao.add(new Venue(-1, name, address, postalCode, city, publicEvent, maxNoOfMusicians, contact));
+            Venue venue = dao.add(Venue.create(name, address, postalCode, city, publicEvent, maxNoOfMusicians, contact));
             result = JsonUtils.toJson(venue);
         }
         return result;

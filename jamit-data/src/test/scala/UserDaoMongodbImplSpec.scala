@@ -53,6 +53,11 @@ class UserDaoMongodbImplSpec extends Specification {
     }
 
     "allow getting all users" in {
+
+      // delete all users first
+      val usersToDelete = dao.getAll
+      for (u <- usersToDelete) dao delete u._id
+
       val u = defaultUser
       val u2 = anotherUser
       dao add u

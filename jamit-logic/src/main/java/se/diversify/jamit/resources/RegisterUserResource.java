@@ -1,6 +1,5 @@
 package se.diversify.jamit.resources;
 
-import org.apache.commons.lang3.StringUtils;
 import scala.Tuple2;
 import se.diversify.jamit.domain.User;
 import se.diversify.jamit.repository.UserDao;

@@ -1,6 +1,6 @@
 package se.diversify.jamit.resources;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import scala.Tuple2;
 
 /**
