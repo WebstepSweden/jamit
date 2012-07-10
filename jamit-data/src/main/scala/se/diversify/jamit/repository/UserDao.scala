@@ -20,5 +20,5 @@ abstract class UserDao extends BaseDao[User] {
  * Defines common user database operations
  */
 object UserDao {
-  def defaultDao = new UserDaoMongodbImpl
+  val defaultDao = new UserDaoMongodbImpl
 }

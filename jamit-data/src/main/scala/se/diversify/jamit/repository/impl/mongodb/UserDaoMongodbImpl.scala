@@ -18,4 +18,5 @@ class UserDaoMongodbImpl extends UserDao with BaseDaoMongodbImpl[User] {
 }
 
 import Constants._
+
 object UserDaoMongodbImpl extends SalatDAO[User, ObjectId](collection = MongoConnection()(databaseName)(userCollection))

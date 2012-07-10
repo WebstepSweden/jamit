@@ -19,4 +19,7 @@ object JsonUtils {
 
   /**Create a not ok message in Json form */
   def notOk(message: String): String = generate(Map("status" -> "not ok", "message" -> message))
+
+  /**Create a not ok message in Json form, given an Exception */
+  def notOk(ex: Exception): String = generate(Map("status" -> "not ok", "message" -> ex.getMessage, "stacktrace" -> ex.getStackTrace))
 }

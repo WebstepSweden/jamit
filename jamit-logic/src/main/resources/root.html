@@ -4,8 +4,12 @@
 <head>
     <title>Jamit REST services test page</title>
     <link type="text/css" href="http://code.jquery.com/ui/1.8.21/themes/cupertino/jquery-ui.css" rel="Stylesheet"/>
+    <link type="text/css" href="http://trentrichardson.com/examples/timepicker/jquery-ui-timepicker-addon.css"
+          rel="stylesheet"/>
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+    <script type="text/javascript"
+            src="http://trentrichardson.com/examples/timepicker/jquery-ui-timepicker-addon.js"></script>
 
     <style type="text/css">
         label {
@@ -36,22 +40,99 @@
     <script type="text/javascript">
         $(function () {
             $("#accordion").accordion();
-            $("#tabs-1").tabs();
-            $("#tabs-2").tabs();
+
+            $("#tabs-users").tabs();
+            $("#tabs-venues").tabs();
+            $("#tabs-jams").tabs();
+
+            $('#timepicker-1').datetimepicker();
+
+            $.ajax({
+                url:"jamit-logic/users/"
+            }).done(function (data) {
+
+                        $('#tabs-users-get').append(JSON.stringify(data));
+
+                        jQuery.each(data, function (i, val) {
+                            var s = "";
+                            var fields = [val.name, val.email, val.phone, val.role, val.password];
+                            jQuery.each(fields, function (j, x) {
+                                if (x != "") {
+                                    s += x + ",";
+                                }
+                            });
+                            s = s.substr(0, s.length - 1);
+
+                            $('#userSelect')
+                                    .append($("<option></option>")
+                                    .attr("value", 0)
+                                    .text(s));
+                        });
+                    });
+
+            $.ajax({
+                url:"jamit-logic/venues/"
+            }).done(function (data) {
+                        $('#tabs-venues-get').append(JSON.stringify(data));
+
+                        jQuery.each(data, function (i, val) {
+                            var s = "";
+                            var fields = [val.name, val.address, val.postalCode, val.city, val.public, val.maxNoOfMusicians, val.contact];
+                            jQuery.each(fields, function (j, x) {
+                                if (x != "") {
+                                    s += x + ",";
+                                }
+                            });
+                            s = s.substr(0, s.length - 1);
+
+                            $('#venueSelect')
+                                    .append($("<option></option>")
+                                    .attr("value", 0)
+                                    .text(s));
+                        });
+                    });
+
+            $.ajax({
+                url:"jamit-logic/jams/"
+            }).done(function (data) {
+                        $('#tabs-jams-get').append(JSON.stringify(data));
+                    });
         });
+
+        function completeUser() {
+            return true;
+        }
     </script>
 </head>
 <body>
 
 <div id="accordion">
 
-    <h3><a href="#">Register User</a></h3>
+    <!--  Users  -->
+    <h3><a href="#">Users</a></h3>
 
-    <div id="tabs-1">
+    <div id="tabs-users">
         <ul>
-            <li><a href="#tabs1-1">Register User (POST)</a></li>
+            <li><a href="#tabs-users-get">Users (GET)</a></li>
+            <li><a href="#tabs-register-user-post">Register User (POST)</a></li>
+            <li><a href="#tabs-user-get">User (GET)</a></li>
         </ul>
-        <div id="tabs-1-1">
+        <div id="tabs-users-get"></div>
+
+
+        <div id="tabs-user-get">
+            <form method="GET" action="jamit-logic/user/" onsubmit="return completeUser()">
+                <p>
+                    <label>id</label><br/><select name="id" id="userSelect"></select>
+                </p>
+
+                <p>
+                    <button type="submit">Submit</button>
+                </p>
+            </form>
+        </div>
+
+        <div id="tabs-register-user-post">
 
             <form method="POST" action="jamit-logic/register-user">
                 <p>
@@ -90,13 +171,19 @@
         </div>
     </div>
 
-    <h3><a href="#">Register Venue</a></h3>
 
-    <div id="tabs-2">
+    <!--  Venues  -->
+    <h3><a href="#">Venues</a></h3>
+
+    <div id="tabs-venues">
         <ul>
-            <li><a href="#tabs2-1">Register Venue (POST)</a></li>
+            <li><a href="#tabs-venues-get">Venues (GET)</a></li>
+            <li><a href="#tabs-register-venue-post">Register Venue (POST)</a></li>
         </ul>
-        <div id="tabs-2-1">
+
+        <div id="tabs-venues-get"></div>
+
+        <div id="tabs-register-venue-post">
             <form method="POST" action="jamit-logic/register-venue">
                 <p>
                     <label>Name</label></br><input type="text" name="name"/>
@@ -134,6 +221,36 @@
             </form>
         </div>
     </div>
+
+    <!--  Jams  -->
+    <h3><a href="#">Jams</a></h3>
+
+    <div id="tabs-jams">
+        <ul>
+            <li><a href="#tabs-jams-get">Jams (GET)</a></li>
+            <li><a href="#tabs-register-jam-post">Register Jam (POST)</a></li>
+        </ul>
+
+        <div id="tabs-jams-get"></div>
+
+        <div id="tabs-register-jam-post">
+            <form action="jamit-logic/register-jam">
+                <p>
+                    <label>Time</label><br/><input type="text" name="time" id="timepicker-1" value=""/>
+                </p>
+
+                <p>
+                    <label>Venue</label><br/><select name="venue" id="venueSelect"></select>
+                </p>
+
+                <p>
+                    <button type="submit">Submit</button>
+                </p>
+            </form>
+        </div>
+    </div>
+
+
 </div>
 
 </body>

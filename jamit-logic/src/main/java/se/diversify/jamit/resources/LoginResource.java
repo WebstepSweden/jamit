@@ -10,7 +10,7 @@ import javax.ws.rs.*;
 /**
  * REST service definitions of path /login
  */
-@Path("/login/")
+@Path("/login")
 public class LoginResource {
 
     private UserDao dao = UserDao.defaultDao();
