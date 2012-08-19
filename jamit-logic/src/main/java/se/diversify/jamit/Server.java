@@ -20,7 +20,7 @@ public class Server {//extends PackagesResourceConfig {
 
 
     private static URI getBaseURI() {
-        return UriBuilder.fromUri("http://localhost/").port(9998).build();
+        return UriBuilder.fromUri("http://localhost/jamit-logic").port(8080).build();
     }
 
     public static final URI BASE_URI = getBaseURI();

@@ -1,5 +1,8 @@
 package se.diversify.jamit.util
 
+import org.bson.types.ObjectId
+import java.util
+
 class ListConverter
 
 object ListConverter {
@@ -11,5 +14,5 @@ object ListConverter {
 
   def toJava[T](l: List[T]): JList[T] = ArrayBuffer(l: _*)
 
-  def fromJava[T](l: JList[T]) = asList(l).toList
+  //def fromJava[T](l: JList[T]) = asList(l).toList
 }

@@ -17,7 +17,7 @@ public class UserResource {
     public String get(@PathParam("id") String id) {
         String result = "";
         try {
-            User user = dao.get(new ObjectId(id));
+            User user = dao.get(Integer.valueOf(id));
             result = JsonUtils.toJson(user);
         } catch (Exception e) {
             result = JsonUtils.notOk(e);

@@ -19,8 +19,9 @@
             display: block;
         }
 
+
         input {
-            width: 200px;
+            width: 300px;
         }
 
         input[type=radio] {
@@ -38,6 +39,10 @@
     </style>
 
     <script type="text/javascript">
+
+        var context = "jamit-logic/";
+        //var context = "";
+
         $(function () {
             $("#accordion").accordion();
 
@@ -48,60 +53,62 @@
             $('#timepicker-1').datetimepicker();
 
             $.ajax({
-                url:"jamit-logic/users/"
+                url:context + "users/"
             }).done(function (data) {
 
                         $('#tabs-users-get').append(JSON.stringify(data));
 
-                        jQuery.each(data, function (i, val) {
-                            var s = "";
+
+                        $.each(data, function (i, val) {
+
                             var fields = [val.name, val.email, val.phone, val.role, val.password];
-                            jQuery.each(fields, function (j, x) {
-                                if (x != "") {
-                                    s += x + ",";
-                                }
-                            });
-                            s = s.substr(0, s.length - 1);
+                            var s = fields.join(",");
 
                             $('#userSelect')
                                     .append($("<option></option>")
-                                    .attr("value", 0)
+                                    .attr("value", val.id)
                                     .text(s));
                         });
                     });
 
             $.ajax({
-                url:"jamit-logic/venues/"
+                url:context + "venues/"
             }).done(function (data) {
+
                         $('#tabs-venues-get').append(JSON.stringify(data));
 
-                        jQuery.each(data, function (i, val) {
-                            var s = "";
+                        $.each(data, function (i, val) {
+
                             var fields = [val.name, val.address, val.postalCode, val.city, val.public, val.maxNoOfMusicians, val.contact];
-                            jQuery.each(fields, function (j, x) {
-                                if (x != "") {
-                                    s += x + ",";
-                                }
-                            });
-                            s = s.substr(0, s.length - 1);
+                            var s = fields.join(",");
 
                             $('#venueSelect')
                                     .append($("<option></option>")
-                                    .attr("value", 0)
+                                    .attr("value", val.id)
                                     .text(s));
                         });
                     });
 
             $.ajax({
-                url:"jamit-logic/jams/"
+                url:context + "jams/"
             }).done(function (data) {
                         $('#tabs-jams-get').append(JSON.stringify(data));
+
                     });
+
+
+            $.each($('form'), function (i, val) {
+                var i = val.action.lastIndexOf('/');
+                val.action = val.action.substr(0, i) + context + val.action.substr(i, val.action.length - i);
+            });
+
+
         });
 
-        function completeUser() {
-            return true;
+        function fixUserFormAction() {
+            //$('form-user-get').action = $('form-user-get').action +
         }
+
     </script>
 </head>
 <body>
@@ -113,15 +120,15 @@
 
     <div id="tabs-users">
         <ul>
-            <li><a href="#tabs-users-get">Users (GET)</a></li>
-            <li><a href="#tabs-register-user-post">Register User (POST)</a></li>
-            <li><a href="#tabs-user-get">User (GET)</a></li>
+            <li><a href="#tabs-users-get">Get all (GET /users)</a></li>
+            <li><a href="#tabs-register-user-post">Register (POST /register-user)</a></li>
+            <li><a href="#tabs-user-get">Get by id (GET /user)</a></li>
         </ul>
         <div id="tabs-users-get"></div>
 
 
         <div id="tabs-user-get">
-            <form method="GET" action="jamit-logic/user/" onsubmit="return completeUser()">
+            <form method="GET" action="user" id="form-user-get" onsubmit="fixUserFormAction()">
                 <p>
                     <label>id</label><br/><select name="id" id="userSelect"></select>
                 </p>
@@ -134,7 +141,7 @@
 
         <div id="tabs-register-user-post">
 
-            <form method="POST" action="jamit-logic/register-user">
+            <form method="POST" action="register-user">
                 <p>
                     <label>Name</label></br><input type="text" name="name"/>
                 </p>
@@ -177,14 +184,14 @@
 
     <div id="tabs-venues">
         <ul>
-            <li><a href="#tabs-venues-get">Venues (GET)</a></li>
-            <li><a href="#tabs-register-venue-post">Register Venue (POST)</a></li>
+            <li><a href="#tabs-venues-get">Get all (GET /venues)</a></li>
+            <li><a href="#tabs-register-venue-post">Register (POST /register-venue)</a></li>
         </ul>
 
         <div id="tabs-venues-get"></div>
 
         <div id="tabs-register-venue-post">
-            <form method="POST" action="jamit-logic/register-venue">
+            <form method="POST" action="register-venue">
                 <p>
                     <label>Name</label></br><input type="text" name="name"/>
                 </p>
@@ -227,14 +234,14 @@
 
     <div id="tabs-jams">
         <ul>
-            <li><a href="#tabs-jams-get">Jams (GET)</a></li>
-            <li><a href="#tabs-register-jam-post">Register Jam (POST)</a></li>
+            <li><a href="#tabs-jams-get">Get all (GET /jams)</a></li>
+            <li><a href="#tabs-register-jam-post">Register (POST /register-jam)</a></li>
         </ul>
 
         <div id="tabs-jams-get"></div>
 
         <div id="tabs-register-jam-post">
-            <form action="jamit-logic/register-jam">
+            <form method="POST" action="register-jam">
                 <p>
                     <label>Time</label><br/><input type="text" name="time" id="timepicker-1" value=""/>
                 </p>

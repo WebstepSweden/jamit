@@ -26,7 +26,7 @@ public class RegisterVenueResource {
                            @FormParam("address") String address,
                            @FormParam("postalCode") String postalCode,
                            @FormParam("city") String city,
-                           @FormParam("public") boolean publicEvent,
+                           @FormParam("publicEvent") boolean publicEvent,
                            @FormParam("maxNoOfMusicians") int maxNoOfMusicians,
                            @FormParam("contact") String contact) {
 
@@ -43,3 +43,4 @@ public class RegisterVenueResource {
     }
 
 }
+

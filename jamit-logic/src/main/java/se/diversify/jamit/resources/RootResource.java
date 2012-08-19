@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Service shown at the root / of the application, allows testing the rest services
  */
-@Path("/")
+@Path("")
 public class RootResource {
 
     @GET

@@ -17,8 +17,8 @@ public class UsersResource {
 
     @GET
     @Produces("application/json")
-    public String venues() {
-        List<User> users = ListConverter.toJava(dao.getAll());
+    public String getAll() {
+        List<?> users = ListConverter.toJava(dao.getAll());
         return JsonUtils.toJson(users);
     }
 }
